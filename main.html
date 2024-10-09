@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Booking</title>
+    <style>
+        .seat {
+            width: 50px;
+            height: 50px;
+            background-color: green;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .booked {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="layout">
+        <!-- Embed your Canva design here -->
+        <iframe src="YOUR_CANVA_EMBED_URL" width="800" height="600"></iframe>
+        <!-- Example seats -->
+        <div class="seat" id="seat1" onclick="bookSeat('seat1')"></div>
+        <div class="seat" id="seat2" onclick="bookSeat('seat2')"></div>
+    </div>
+
+    <script>
+        function bookSeat(seatId) {
+    fetch('/api/bookSeat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(seatId)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data === "Seat booked successfully!") {
+            document.getElementById(seatId).classList.add('booked');
+            alert(data);
+        } else {
+            alert(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+    </script>
+</body>
+</html>
